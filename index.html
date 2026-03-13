@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenClaw - 开源 AI Agent 框架</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .hero {
+            padding: 100px 0 80px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .features {
+            background: white;
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .feature-card i {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .feature-card p {
+            color: #666;
+        }
+
+        .channels {
+            background: #f8f9fa;
+            padding: 80px 0;
+        }
+
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .channel-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .channel-item:hover {
+            transform: scale(1.05);
+        }
+
+        .channel-item i {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .channel-item.telegram { color: #0088cc; }
+        .channel-item.signal { color: #3a76f0; }
+        .channel-item.discord { color: #7289da; }
+        .channel-item.whatsapp { color: #25d366; }
+        .channel-item.wechat { color: #07c160; }
+        .channel-item.qq { color: #12b7f5; }
+
+        .quick-start {
+            background: white;
+            padding: 80px 0;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            margin: 2rem 0;
+        }
+
+        .code-block code {
+            display: block;
+            line-height: 1.6;
+        }
+
+        .community {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .community-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .community-links a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .community-links a:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-robot"></i>
+                    OpenClaw
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#features">特性</a></li>
+                    <li><a href="#channels">支持平台</a></li>
+                    <li><a href="#quickstart">快速开始</a></li>
+                    <li><a href="#community">社区</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>🦞 OpenClaw</h1>
+            <p>开源 AI Agent 框架 - 让 AI 连接你的世界</p>
+            <a href="https://github.com/openclaw/openclaw" class="cta-button">
+                <i class="fab fa-github"></i> 查看 GitHub
+            </a>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">核心特性</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-comments"></i>
+                    <h3>多平台支持</h3>
+                    <p>支持 Telegram、Signal、Discord、WhatsApp、微信、QQ 等多个即时通讯平台</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>AI 驱动</h3>
+                    <p>集成多种 AI 模型，支持对话、记忆、工具调用等高级功能</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-tools"></i>
+                    <h3>技能系统</h3>
+                    <p>灵活的技能系统，支持自定义开发和社区分享</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>定时任务</h3>
+                    <p>强大的定时提醒和任务调度系统</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>安全可靠</h3>
+                    <p>本地运行，数据隐私得到保护</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-plug"></i>
+                    <h3>易于扩展</h3>
+                    <p>模块化设计，方便集成第三方服务</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="channels" id="channels">
+        <div class="container">
+            <h2 class="section-title">支持的平台</h2>
+            <div class="channels-grid">
+                <div class="channel-item telegram">
+                    <i class="fab fa-telegram"></i>
+                    <h3>Telegram</h3>
+                </div>
+                <div class="channel-item signal">
+                    <i class="fas fa-signal"></i>
+                    <h3>Signal</h3>
+                </div>
+                <div class="channel-item discord">
+                    <i class="fab fa-discord"></i>
+                    <h3>Discord</h3>
+                </div>
+                <div class="channel-item whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                    <h3>WhatsApp</h3>
+                </div>
+                <div class="channel-item wechat">
+                    <i class="fab fa-weixin"></i>
+                    <h3>微信</h3>
+                </div>
+                <div class="channel-item qq">
+                    <i class="fab fa-qq"></i>
+                    <h3>QQ</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="quick-start" id="quickstart">
+        <div class="container">
+            <h2 class="section-title">快速开始</h2>
+            <p style="text-align: center; margin-bottom: 2rem; font-size: 1.2rem;">只需三步，即可启动你的 AI Agent</p>
+
+            <div class="code-block">
+                <code># 1. 安装 OpenClaw
+npm install -g openclaw
+
+# 2. 初始化配置
+openclaw init
+
+# 3. 启动服务
+openclaw gateway start</code>
+            </div>
+
+            <p style="text-align: center; margin-top: 2rem;">
+                <a href="https://docs.openclaw.ai" class="cta-button">
+                    <i class="fas fa-book"></i> 查看完整文档
+                </a>
+            </p>
+        </div>
+    </section>
+
+    <section class="community" id="community">
+        <div class="container">
+            <h2>加入社区</h2>
+            <p style="margin-top: 1rem; font-size: 1.2rem; opacity: 0.9;">与全球开发者一起探索 AI Agent 的未来</p>
+            <div class="community-links">
+                <a href="https://github.com/openclaw/openclaw">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="https://discord.gg/clawd">
+                    <i class="fab fa-discord"></i> Discord
+                </a>
+                <a href="https://clawhub.com">
+                    <i class="fas fa-cube"></i> ClawHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://github.com/openclaw/openclaw">GitHub</a>
+                <a href="https://docs.openclaw.ai">文档</a>
+                <a href="https://clawhub.com">ClawHub</a>
+            </div>
+            <p>&copy; 2026 OpenClaw. Licensed under MIT.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)';
+            } else {
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            }
+        });
+    </script>
+</body>
+</html>
