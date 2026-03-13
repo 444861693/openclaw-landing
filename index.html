@@ -237,6 +237,143 @@
             background: rgba(255, 255, 255, 0.3);
         }
 
+        .cli-reference {
+            background: #f8f9fa;
+            padding: 80px 0;
+        }
+
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .category-tab {
+            padding: 0.75rem 1.5rem;
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            color: #667eea;
+        }
+
+        .category-tab:hover,
+        .category-tab.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .command-category {
+            display: none;
+        }
+
+        .command-category.active {
+            display: block;
+        }
+
+        .command-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .command-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .command-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .command-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .command-name {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #667eea;
+            background: #f0f4ff;
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+        }
+
+        .copy-btn {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .copy-btn:hover {
+            color: #667eea;
+        }
+
+        .command-description {
+            color: #555;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .command-example {
+            background: #1e1e1e;
+            color: #a5d6a7;
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .command-tag {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .tag-beginner {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .tag-intermediate {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .tag-advanced {
+            background: #fce4ec;
+            color: #c2185b;
+        }
+
+        @media (max-width: 768px) {
+            .command-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         footer {
             background: #333;
             color: white;
@@ -291,6 +428,7 @@
                 <ul class="nav-links">
                     <li><a href="#features">特性</a></li>
                     <li><a href="#channels">支持平台</a></li>
+                    <li><a href="#cli">命令参考</a></li>
                     <li><a href="#quickstart">快速开始</a></li>
                     <li><a href="#community">社区</a></li>
                 </ul>
@@ -378,6 +516,354 @@
         </div>
     </section>
 
+    <section class="cli-reference" id="cli">
+        <div class="container">
+            <h2 class="section-title">常用命令参考</h2>
+            <p style="text-align: center; margin-bottom: 2rem; font-size: 1.1rem; color: #666;">
+                快速查找常用命令，点击分类查看详细说明
+            </p>
+
+            <div class="category-tabs">
+                <button class="category-tab active" data-category="beginner">
+                    <i class="fas fa-seedling"></i> 入门必备
+                </button>
+                <button class="category-tab" data-category="gateway">
+                    <i class="fas fa-server"></i> Gateway 管理
+                </button>
+                <button class="category-tab" data-category="channels">
+                    <i class="fas fa-comments"></i> 通道管理
+                </button>
+                <button class="category-tab" data-category="models">
+                    <i class="fas fa-brain"></i> 模型管理
+                </button>
+                <button class="category-tab" data-category="memory">
+                    <i class="fas fa-database"></i> 记忆管理
+                </button>
+                <button class="category-tab" data-category="automation">
+                    <i class="fas fa-clock"></i> 自动化
+                </button>
+            </div>
+
+            <!-- 入门必备 -->
+            <div class="command-category active" id="category-beginner">
+                <div class="command-grid">
+                    <div class="command-card">
+                        <div class="command-header">
+                            <span class="command-name">openclaw setup</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <span class="command-tag tag-beginner">入门</span>
+                        <p class="command-description">初始化配置和工作区，首次安装必运行</p>
+                        <div class="command-example">openclaw setup</div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-header">
+                            <span class="command-name">openclaw onboard</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <span class="command-tag tag-beginner">入门</span>
+                        <p class="command-description">交互式向导，快速设置 Gateway、工作区和技能</p>
+                        <div class="command-example">openclaw onboard</div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-header">
+                            <span class="command-name">openclaw status</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <span class="command-tag tag-beginner">入门</span>
+                        <p class="command-description">查看会话健康状况和最近联系人</p>
+                        <div class="command-example">openclaw status</div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-header">
+                            <span class="command-name">openclaw doctor</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <span class="command-tag tag-beginner">入门</span>
+                        <p class="command-description">健康检查和快速修复，诊断常见问题</p>
+                        <div class="command-example">openclaw doctor</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gateway 管理 -->
+            <div class="command-category" id="category-gateway">
+                <div class="command-grid">
+                    <div class="command-card">
+                        <div class="command-header">
+                            <span class="command-name">gateway start</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <span class="command-tag tag-intermediate">中级</span>
+                        <p class="command-description">启动 Gateway 服务</p>
+                        <div class="command-example">openclaw gateway start</div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-header">
+                            <span class="command-name">gateway stop</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <span class="command-tag tag-intermediate">中级</span>
+                        <p class="command-description">停止 Gateway 服务</p>
+                        <div class="command-example">openclaw gateway stop</div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-header">
+                            <span class="command-name">gateway restart</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <span class="command-tag tag-intermediate">中级</span>
+                        <p class="command-description">重启 Gateway 服务</p>
+                        <div class="command-example">openclaw gateway restart</div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-header">
+                            <span class="command-name">gateway status</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <span class="command-tag tag-intermediate">中级</span>
+                        <p class="command-description">查看 Gateway 运行状态</p>
+                        <div class="command-example">openclaw gateway status</div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-header">
+                            <span class="command-name">logs</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <span class="command-tag tag-intermediate">中级</span>
+                        <p class="command-description">查看 Gateway 日志（实时跟踪）</p>
+                        <div class="command-example">openclaw logs --follow</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 通道管理 -->
+            <div class="command-category" id="category-channels">
+                <div class="command-grid">
+                    <div class="command-card">
+                        <div class="command-header">
+                            <span class="command-name">channels add</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <span class="command-tag tag-intermediate">中级</span>
+                        <p class="command-description">添加新的聊天通道</p>
+                        <div class="command-example">openclaw channels add --channel telegram --token $TELEGRAM_BOT_TOKEN</div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-header">
+                            <span class="command-name">channels list</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <span class="command-tag tag-intermediate">中级</span>
+                        <p class="command-description">列出所有已配置的通道</p>
+                        <div class="command-example">openclaw channels list</div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-header">
+                            <span class="command-name">channels status</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <span class="command-tag tag-intermediate">中级</span>
+                        <p class="command-description">检查通道连接状态和健康度</p>
+                        <div class="command-example">openclaw channels status --probe</div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-header">
+                            <span class="command-name">channels remove</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <span class="command-tag tag-advanced">高级</span>
+                        <p class="command-description">移除已配置的通道（使用 --delete 彻底删除）</p>
+                        <div class="command-example">openclaw channels remove --channel discord --delete</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 模型管理 -->
+            <div class="command-category" id="category-models">
+                <div class="command-grid">
+                    <div class="command-card">
+                        <div class="command-header">
+                            <span class="command-name">models status</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <span class="command-tag tag-intermediate">中级</span>
+                        <p class="command-description">查看当前配置的模型和认证状态</p>
+                        <div class="command-example">openclaw models status</div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-header">
+                            <span class="command-name">models list</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <span class="command-tag tag-intermediate">中级</span>
+                        <p class="command-description">列出所有可用模型</p>
+                        <div class="command-example">openclaw models list --all</div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-header">
+                            <span class="command-name">models set</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <span class="command-tag tag-intermediate">中级</span>
+                        <p class="command-description">设置默认模型</p>
+                        <div class="command-example">openclaw models set anthropic/claude-3.5-sonnet</div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-header">
+                            <span class="command-name">models auth</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <span class="command-tag tag-advanced">高级</span>
+                        <p class="command-description">添加或管理模型认证（API Key、Token）</p>
+                        <div class="command-example">openclaw models auth add --provider anthropic</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 记忆管理 -->
+            <div class="command-category" id="category-memory">
+                <div class="command-grid">
+                    <div class="command-card">
+                        <div class="command-header">
+                            <span class="command-name">memory search</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <span class="command-tag tag-intermediate">中级</span>
+                        <p class="command-description">在 MEMORY.md 和 memory/*.md 中进行语义搜索</p>
+                        <div class="command-example">openclaw memory search "项目进展"</div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-header">
+                            <span class="command-name">memory status</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <span class="command-tag tag-intermediate">中级</span>
+                        <p class="command-description">查看记忆索引统计信息</p>
+                        <div class="command-example">openclaw memory status</div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-header">
+                            <span class="command-name">memory index</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <span class="command-tag tag-advanced">高级</span>
+                        <p class="command-description">重新索引记忆文件</p>
+                        <div class="command-example">openclaw memory index</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 自动化 -->
+            <div class="command-category" id="category-automation">
+                <div class="command-grid">
+                    <div class="command-card">
+                        <div class="command-header">
+                            <span class="command-name">cron add</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <span class="command-tag tag-advanced">高级</span>
+                        <p class="command-description">添加定时任务（提醒、周期性任务）</p>
+                        <div class="command-example">openclaw cron add --name "晨会提醒" --at 09:00 --message "开会啦"</div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-header">
+                            <span class="command-name">cron list</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <span class="command-tag tag-advanced">高级</span>
+                        <p class="command-description">列出所有定时任务</p>
+                        <div class="command-example">openclaw cron list --all</div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-header">
+                            <span class="command-name">cron rm</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <span class="command-tag tag-advanced">高级</span>
+                        <p class="command-description">删除指定的定时任务</p>
+                        <div class="command-example">openclaw cron rm <task-id></div>
+                    </div>
+
+                    <div class="command-card">
+                        <div class="command-header">
+                            <span class="command-name">cron runs</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <span class="command-tag tag-advanced">高级</span>
+                        <p class="command-description">查看定时任务执行历史</p>
+                        <div class="command-example">openclaw cron runs --id <task-id> --limit 10</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="quick-start" id="quickstart">
         <div class="container">
             <h2 class="section-title">快速开始</h2>
@@ -455,6 +941,46 @@ openclaw gateway start</code>
                 header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
             }
         });
+
+        // Category tab switching
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        const commandCategories = document.querySelectorAll('.command-category');
+
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                categoryTabs.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                tab.classList.add('active');
+
+                // Hide all categories
+                commandCategories.forEach(cat => cat.classList.remove('active'));
+                // Show selected category
+                const categoryId = 'category-' + tab.dataset.category;
+                document.getElementById(categoryId).classList.add('active');
+            });
+        });
+
+        // Copy command to clipboard
+        function copyCommand(button) {
+            const commandCard = button.closest('.command-card');
+            const commandExample = commandCard.querySelector('.command-example');
+            const textToCopy = commandExample.textContent;
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const icon = button.querySelector('i');
+                icon.classList.remove('fa-copy');
+                icon.classList.add('fa-check');
+
+                setTimeout(() => {
+                    icon.classList.remove('fa-check');
+                    icon.classList.add('fa-copy');
+                }, 2000);
+            }).catch(err => {
+                console.error('复制失败:', err);
+                alert('复制失败，请手动复制命令');
+            });
+        }
     </script>
 </body>
 </html>
